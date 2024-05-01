@@ -1,43 +1,49 @@
 #include <stdio.h>
-float calcmontototal(float monto, float montototal, int meses){
-    montototal=monto*meses;
-    return montototal;
+
+float calcmontototal(float monto, int meses) {
+    return monto * meses;
 }
-float calcintereses(float monto, float tasainteres, int meses){
-    return monto * tasainteres /meses;
+
+float calcintereses(float monto, float tasainteres, int meses) {
+    return monto * tasainteres * meses;
 }
-void tabla(float monto, float interes, int meses, int ahorroeintereses){
-    printf("MES\tAHORRO\tINTERES\tAHORRO+INTERES");
-    for (int i =1; i<=meses; i++){
+
+void tabla(float monto, float interes, int meses) {
+    printf("MES\tAHORRO\tINTERES\tAHORRO+INTERES\n");
+    for (int i = 1; i <= meses; i++) {
         float montototal = calcmontototal(monto, i);
-        float totalinteres =calcintereses(monto, interes, i);
-        printf("%d\t%.2f\t%.2f\t%.2f\n", i, monto, interes, ahorroeintereses);
+        float totalinteres = calcintereses(monto, interes, i);
+        printf("%d\t%.2f\t%.2f\t%.2f\n", i, montototal, totalinteres, montototal + totalinteres);
     }
 }
 
-int main(){
-    int meses, contador =0, i;
-    float monto, interes, ahorroeintereses, montototal=0, tasainteres=0.07, tasaimpuestorenta=0.02;
+int main() {
+    int meses;
+    float monto, tasainteres;
+
     printf("Ingrese el total de meses: ");
-    scanf("%d",&meses);
-    if(meses<=0){
-        do{
+    scanf("%d", &meses);
+    if (meses <= 0) {
+        do {
             printf("\nIngrese un valor correcto: ");
             scanf("%d", &meses);
-        }while(meses<=0);
+        } while (meses <= 0);
     }
+
     printf("Ingrese el monto: ");
     scanf("%f", &monto);
-    if(monto<=0){
-        do{
+    if (monto <= 0) {
+        do {
             printf("\nIngrese un valor correcto: ");
             scanf("%f", &monto);
-        }while(monto<=0);}
-    do{
-        montototal=montototal+monto;
-        contador++;
-    } while (contador<meses);
-    printf("El monto total es: %.2f", montototal);
-    printf("\ntabla:\n");
-    tabla(i, monto, interes, ahorroeintereses);
+        } while (monto <= 0);
+    }
+
+    printf("Ingrese la tasa de interes: ");
+    scanf("%f", &tasainteres);
+
+    printf("tabla:\n");
+    tabla(monto, tasainteres, meses);
+
+    return 0;
 }
